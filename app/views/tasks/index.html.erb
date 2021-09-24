@@ -1,61 +1,33 @@
-<% if logged_in? %>
-  <h1>タスク一覧</h1>
-  
-  <ul>
-    <% @tasks.each do |task| %>
-      <li><%= link_to task.id, task %> : <%= task.status %> &gt; <%= task.content %></li>
-    <% end %>
-  </ul>
-  
-  <% if @tasks.any? %>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>ステータス</th></th>
-          <th>タスク</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @tasks.each do |task| %>
-          <tr>
-            <td><%= link_to task.id, task %></td>
-            <td><%= task.status %></td>
-            <td><%= task.content %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div>
-      <%== pagy_bootstrap_nav(@pagy) %>
-    </div>
+<h1>タスク一覧</h1>
+
+<ul>
+  <% @tasks.each do |task| %>
+    <li><%= link_to task.id, task %> : <%= task.status %> &gt; <%= task.content %></li>
   <% end %>
-  
-  <%= link_to '新規タスクの投稿', new_task_path, class: "btn btn-primary" %>
-<% else %>
-  <div class="text-center">
-    <h1>Log in</h1>
-  </div>
-  
-  <div class="row">
-    <div class="col-sm-6 offset-sm-3">
-  
-      <%= form_with(url: login_path, scope: :session) do |f| %>
-  
-        <div class="mb-3">
-          <%= f.label :email, 'Email' %>
-          <%= f.email_field :email, class: 'form-control' %>
-        </div>
-  
-        <div class="mb-3">
-          <%= f.label :password, 'Password' %>
-          <%= f.password_field :password, class: 'form-control' %>
-        </div>
-  
-        <%= f.submit 'Log in', class: 'btn btn-primary w-100' %>
+</ul>
+
+<% if @tasks.any? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>ステータス</th></th>
+        <th>タスク</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= link_to task.id, task %></td>
+          <td><%= task.status %></td>
+          <td><%= task.content %></td>
+        </tr>
       <% end %>
-  
-      <p>New user? <%= link_to 'Sign up now!', signup_path %></p>
-    </div>
+    </tbody>
+  </table>
+  <div>
+    <%== pagy_bootstrap_nav(@pagy) %>
   </div>
 <% end %>
+
+<%= link_to '新規タスクの投稿', new_task_path, class: "btn btn-primary" %>
